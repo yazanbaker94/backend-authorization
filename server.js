@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3001;
 
   const client = jwksClient({
     // this url comes from your app on the auth0 dashboard 
-    jwksUri: `https://${process.env.AUTH0_DOMAIN_NAME}/.well-known/jwks.json`
+    jwksUri: `https://dev-rxdxwsv9.eu.auth0.com/.well-known/jwks.json`
   });
 
 // this is a ready to use function
