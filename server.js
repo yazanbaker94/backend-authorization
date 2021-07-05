@@ -50,12 +50,15 @@ app.get('/authorize',(req,res)=>{
 
 app.get('/books', (req,res) =>{
   const email=req.query.email
+  
   UserModel.findOne({email:email}, (error, books)=>{
       if (error){
           res.send(error.message)
       }
       res.send(books);
+   
   });
+  
 })
 
 app.listen(PORT,()=>{
