@@ -5,9 +5,14 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-
+const mongoose=require('mongoose');
 const app = express();
+const UserModel = require('./models/user.model')
 app.use(cors());
+
+mongoose.connect('mongodb://localhost:27017/user',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 const PORT = process.env.PORT || 3001;
 
@@ -41,6 +46,20 @@ app.get('/authorize',(req,res)=>{
     })
     res.send(token);
 });
+
+
+app.get('/books', (req,res) =>{
+  const email=req.query.email
+  
+  UserModel.findOne({email:email}, (error, books)=>{
+      if (error){
+          res.send(error.message)
+      }
+      res.send(books);
+   
+  });
+  
+})
 
 app.listen(PORT,()=>{
     console.log(`listening to port: ${PORT}`);
