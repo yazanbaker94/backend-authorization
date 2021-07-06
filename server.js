@@ -1,26 +1,33 @@
 'use strict';
+const express = require('express');
+const app = express();
+
+// require mongoose
+const mongoose=require('mongoose');
+
+
 
 require('dotenv').config();
-const express = require('express');
+const PORT = process.env.PORT ;
 const cors = require('cors');
+app.use(cors()); 
+
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-const mongoose=require('mongoose');
-const app = express();
-const UserModel = require('./models/user.model')
-app.use(cors());
 
+
+// mongoose  connect to the database at localhost:27017
 mongoose.connect('mongodb://localhost:27017/user',
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
-const PORT = process.env.PORT || 3001;
 
-  // TODO: 
-  // STEP 1: get the jwt from the headers
-  // STEP 2. use the jsonwebtoken library to verify that it is a valid jwt
-  // jsonwebtoken dock - https://www.npmjs.com/package/jsonwebtoken
-  // STEP 3: to prove that everything is working correctly, send the opened jwt back to the front-end
+const UserModel = require('./models/user.model')
+
+
+
+
+  
 
   const client = jwksClient({
     // this url comes from your app on the auth0 dashboard 
