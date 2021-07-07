@@ -39,7 +39,7 @@ const dunia =new userModel({
 });
 
 dunia.save()
-console.log(dunia);
+
 
 
     const yazan=new userModel({
@@ -58,7 +58,7 @@ console.log(dunia);
         ]
     });
     yazan.save()
-    console.log(yazan);
+  
    
 
 

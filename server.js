@@ -14,6 +14,7 @@ app.use(cors());
 
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
+app.use(express.json())
 
 
 // mongoose  connect to the database at localhost:27017
@@ -48,8 +49,10 @@ app.get('/authorize',(req,res)=>{
     jwt.verify(token,getKey,{},(err,user)=>{
         if(err){
             res.send('invalid token');
+            
         }
         res.send(user)
+        
     })
     res.send(token);
 });
@@ -61,12 +64,44 @@ app.get('/books', (req,res) =>{
   UserModel.findOne({email:email}, (error, books)=>{
       if (error){
           res.send(error.message)
+          
       }
       res.send(books);
+      
    
   });
   
 })
+
+
+app.post('/books', (req,res) => {
+
+    const {userEmail,bookName,bookStatus,bookDescription} = req.body;
+
+    UserModel.find({ email:userEmail }, function (err, user) {
+        if (err) return console.error(err);
+        const newBook ={
+            name : bookName,
+            description: bookDescription,
+            status : bookStatus
+        };
+       console.log(user)
+
+        user[0].books.push(newBook);
+        user[0].save();
+        res.send(user[0])
+        console.log(user.books)
+    });
+})
+
+app.delete('/books/:id', async (req, res) => {
+    const index = Number(req.params.index);
+    const { email } = req.query;
+    UserModel.find({ email: email }, (err, userBooks) => {
+       res.send(userBooks)
+    })
+})
+  
 
 app.listen(PORT,()=>{
     console.log(`listening to port: ${PORT}`);
