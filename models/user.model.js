@@ -20,31 +20,4 @@ const userModel=mongoose.model('user',userSchema)
 
 
 
-
-
-
-
-
-    // const yazan=new userModel({
-    //     email: 'softwaredohanow@gmail.com',
-    //     books: [
-    //         {
-    //             name: 'In Search of Lost Time',
-    //             description: 'also translated as Remembrance of Things Past, novel in seven parts by Marcel Proust, published in Frenc',
-    //             status: 'available'
-    //         },
-    //         {
-    //             name: 'The Divine Comedy ',
-    //             description: 'Belonging in the immortal company of the great works of literature, Dante Alighieris poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the ...',
-    //             status: 'available'
-    //         }
-    //     ]
-    // });
-    // yazan.save()
-    // console.log(yazan);
-   
-
-
-
-
 module.exports=userModel

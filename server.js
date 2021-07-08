@@ -74,8 +74,27 @@ function seedingUserShema(){
             }
         ]
     });
-    dunia.save()
-console.log(dunia);
+    const yazan=new userModel({
+        email: 'softwaredohanow@gmail.com',
+        books: [
+            {
+                name: 'In Search of Lost Time',
+                description: 'also translated as Remembrance of Things Past, novel in seven parts by Marcel Proust, published in Frenc',
+                status: 'available'
+            },
+            {
+                name: 'The Divine Comedy ',
+                description: 'Belonging in the immortal company of the great works of literature, Dante Alighieris poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the ...',
+                status: 'available'
+            }
+        ]
+    });
+
+    dunia.save();
+    console.log(yazan);
+    yazan.save();
+    console.log(yazan);
+   
 
 }
 seedingUserShema();
@@ -125,33 +144,27 @@ res.send(data.books)
 });
 
 
-app.delete('/books/:index',(req,res)=>{
-  // console.log(req.params)
-  const index = Number(req.params.book_idx);
-  // console.log(index)
-  const {email}=req.query;
-  userModel.findOne({email:email},(error,data)=>{
-  // const mydelet=data[0]
-  //  console.log('data',data)
+
+
+app.delete('/books/:index', (req, res)=> {
+ 
   
-  if (error) {
-    res.send(error)
-} else {
-   data.books.splice(Index, 1);
-   data.save();
-    res.send(data.books);
-    // res.send('cat deleted')
-}
-
+   
+    const index = Number(req.params.index);
+    // console.log(index)
+    const { email} = req.query;
+    
+    userModel.findOne({email: email}, (err, data) => {
+        
+        const newdelete=data.books.filter((bok,idx)=>
+        {
+          return idx !==index
+        })
+       data.books=newdelete;
+       data.save();
+        res.send('the book deleted')
+    });
 });
-});
-
-
-
-
-
-
-
 
 
 app.listen(PORT,()=>{
