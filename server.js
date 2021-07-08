@@ -71,7 +71,13 @@ function seedingUserShema(){
                 name: 'Hamlet',
                 description: 'The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Pri...',
                 status: 'published'
-            }
+            },
+            {
+                name: 'THE SUN ALSO RISES',
+                description: 'More Ecclesiastes! This particular quotation is from 1:5, which states that The sun also ariseth, and the sun goeth down, and hasteth to his place where he arose. Hemingway’s modernist novel came out in 1926.',
+                status: 'published'
+            },
+
         ]
     });
     const yazan=new userModel({
@@ -86,7 +92,15 @@ function seedingUserShema(){
                 name: 'The Divine Comedy ',
                 description: 'Belonging in the immortal company of the great works of literature, Dante Alighieris poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the ...',
                 status: 'available'
+            },
+            {
+                name: 'BRAVE NEW WORLD  ',
+                description: 'This is possibly the most famous book to take its title from a Shakespeare play – in this case, The Tempest',
+                status: 'available'
             }
+
+
+
         ]
     });
 
@@ -98,14 +112,6 @@ function seedingUserShema(){
 
 }
 seedingUserShema();
-
-
-
-
-
-
-
-
 
 //books end point :get 
 app.get('/books', (req,res) =>{
@@ -120,8 +126,6 @@ userModel.findOne({email:email}, (error, result)=>{
   });
   
 });
-
-
 
 app.post('/books',(req,res)=>{
   
@@ -143,13 +147,8 @@ res.send(data.books)
   });
 });
 
-
-
-
 app.delete('/books/:index', (req, res)=> {
  
-  
-   
     const index = Number(req.params.index);
     // console.log(index)
     const { email} = req.query;
@@ -166,6 +165,26 @@ app.delete('/books/:index', (req, res)=> {
     });
 });
 
+app.put('/book/:index', (req, res)=> {
+
+
+  const index=Number(req.params.index)
+
+const{name,description, status, email}=req.body;
+
+userModel.findOne({email:email},(error,data)=>{
+data.books.splice(index,1,{
+name:name,
+description:description,
+status:status
+}
+
+)
+data.save();
+res.send(data.books)
+})
+
+});
 
 app.listen(PORT,()=>{
     console.log(`listening to port: ${PORT}`);
