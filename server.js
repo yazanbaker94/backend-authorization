@@ -19,7 +19,7 @@ const jwksClient = require('jwks-rsa');
 
 
 // mongoose  connect to the database at localhost:27017
-mongoose.connect('mongodb://localhost:27017/user',
+mongoose.connect('mongodb+srv://yazan:heythere@123@cluster0.bj0hi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
